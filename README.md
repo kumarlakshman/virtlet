@@ -11,6 +11,12 @@ Deploy Kubernetes cluster
 1 master and 3 workers
 worker nodes attach 1 HHDs with 100G capacity to each worker, these will be used for CEPH OSD drives 
 
+make sure the disks you selecting for OSDs on worker node, does not contain any valid partions or signatures, ifso please make cleanup 
+    --> wipefs --all /dev/xvdb
+                (or)
+    --> fdisk -l
+        dmsetup remove /dev/mapper/ceph--
+    
 clone the rook-ceph 1.2 git repo
     git clone --single-branch --branch release-1.2 https://github.com/rook/rook.git
 
@@ -29,3 +35,5 @@ make the needed changes for your HDDs you use.
 ceph cluster.
 
 --> kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') bash <-- for connecting to the tools pod
+
+
