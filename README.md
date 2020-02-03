@@ -37,3 +37,7 @@ ceph cluster.
 --> kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') bash <-- for connecting to the tools pod
 
 
+on re-installation make sure the the config directory being deleted.
+    sudo rm -rf /var/lib/rook/
+
+    
