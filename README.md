@@ -40,4 +40,6 @@ ceph cluster.
 on re-installation make sure the the config directory being deleted.
     sudo rm -rf /var/lib/rook/
 
-    
+once you have the all pods up, you can access the ceph dashboard, accessing the manager pod. access kubernetes node with port forwarding..
+
+ssh -i "ssh-key.pem" -L 32136:localhost:32136 ubuntu@13.233.251.211
