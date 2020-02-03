@@ -18,4 +18,9 @@ follow the instructions present @ https://rook.io/docs/rook/v1.2/ceph-quickstart
 make the needed changes for your HDDs you use.
 
 --> cd rook/cluster/examples/kubernetes/ceph
---> 
+
+--> kubectl create -f common.yaml
+
+--> kubectl create -f operator.yaml
+
+--> kubectl create -f cluster.yaml (please refer to cluster.yaml from this repo for needed changes.)
