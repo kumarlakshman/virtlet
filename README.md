@@ -9,7 +9,7 @@ Steps:
 ------
 Deploy Kubernetes cluster
 1 master and 3 workers
-worker nodes attach 1 HHDs with 100G capacity, these will be used for CEPH OSD drives 
+worker nodes attach 1 HHDs with 100G capacity to each worker, these will be used for CEPH OSD drives 
 
 clone the rook-ceph 1.2 git repo
     git clone --single-branch --branch release-1.2 https://github.com/rook/rook.git
