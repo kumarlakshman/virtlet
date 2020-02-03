@@ -5,3 +5,15 @@ KubeVirt is a virtual machine management add-on for Kubernetes providing control
 
 Virtlet, on the other hand is a CRI (Container Runtime Interface) implementation, which means that Kubernetes sees VMs in the same way it sees Docker containers.
 
+Steps:
+------
+Deploy Kubernetes cluster
+1 master and 3 workers
+worker nodes attach 1 HHDs with 100G capacity, these will be used for CEPH OSD drives 
+
+clone the rook-ceph 1.2 git repo
+    git clone --single-branch --branch release-1.2 https://github.com/rook/rook.git
+
+follow the instructions present @ https://rook.io/docs/rook/v1.2/ceph-quickstart.html and deploy your rook-ceph 
+make the needed changes for your HDDs you use.
+
