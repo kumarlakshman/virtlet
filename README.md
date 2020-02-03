@@ -17,3 +17,5 @@ clone the rook-ceph 1.2 git repo
 follow the instructions present @ https://rook.io/docs/rook/v1.2/ceph-quickstart.html and deploy your rook-ceph 
 make the needed changes for your HDDs you use.
 
+--> cd rook/cluster/examples/kubernetes/ceph
+--> 
