@@ -24,3 +24,6 @@ make the needed changes for your HDDs you use.
 --> kubectl create -f operator.yaml
 
 --> kubectl create -f cluster.yaml (please refer to cluster.yaml from this repo for needed changes.)
+
+--> kubectl create -f toolbox.yaml <-- This will bring up the toolbox pod with all needed ceph clients for connecting to ceph       
+                                       cluster.
