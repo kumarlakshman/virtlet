@@ -25,5 +25,7 @@ make the needed changes for your HDDs you use.
 
 --> kubectl create -f cluster.yaml (please refer to cluster.yaml from this repo for needed changes.)
 
---> kubectl create -f toolbox.yaml <-- This will bring up the toolbox pod with all needed ceph clients for connecting to ceph       
-                                       cluster.
+--> kubectl create -f toolbox.yaml <-- This will bring up the toolbox pod with all needed ceph clients for connecting to 
+ceph cluster.
+
+--> kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') bash <-- for connecting to the tools pod
