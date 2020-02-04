@@ -54,3 +54,6 @@ sudo groupadd docker
 
 sudo usermod -aG docker ubuntu
 
+--> use this document to install the virtlet https://docs.virtlet.cloud/user-guide/real-cluster/
+
+
