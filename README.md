@@ -45,3 +45,9 @@ once you have the all pods up, you can access the ceph dashboard, accessing the 
 find the service with manager-dashboard, change the service type from ClusterIp to NodePort, on the port which it get maps, login to the host with port tunneling to localhost and access the dashboard from local system.
                ssh -i "ssh-key.pem" -L 32136:localhost:32136 ubuntu@13.233.251.211
                
+virtlet Installation
+====================
+
+sudo groupadd docker
+sudo usermod -aG docker ubuntu
+
