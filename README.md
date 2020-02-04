@@ -58,9 +58,11 @@ make sure all k8s cluster hosts pingable with hostnames.
 
 --> use this document to install the virtlet https://docs.virtlet.cloud/user-guide/real-cluster/
 
---> wget https://github.com/Mirantis/criproxy/releases/download/v0.14.0/criproxy_0.14.0_amd64.deb
-
+--> 
+    
+    wget https://github.com/Mirantis/criproxy/releases/download/v0.14.0/criproxy_0.14.0_amd64.deb
     dpkg -i criproxy_0.14.0_amd64.deb
-
     systemctl status criproxy
+    systemctl status criproxy
+    
 
