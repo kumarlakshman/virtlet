@@ -48,6 +48,8 @@ find the service with manager-dashboard, change the service type from ClusterIp 
 virtlet Installation
 ====================
 
+sestatus <-- SELinux Status should be disabled
+
 sudo groupadd docker
 
 sudo usermod -aG docker ubuntu
