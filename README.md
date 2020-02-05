@@ -66,3 +66,10 @@ make sure all k8s cluster hosts pingable with hostnames.
     systemctl status criproxy
     
 
+Trouble shooting failures
+--------------------------
+
+systemctl status dockershim <-- incase criproxy installation fails check the status of dockrshim, get it started and then  start the criproxy again.
+
+sudo systemctl enable criproxy dockershim <-- enable the criproxy/dockershim to start on boot
+
