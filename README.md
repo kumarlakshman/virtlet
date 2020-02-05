@@ -9,7 +9,13 @@ Steps:
 ------
 Deploy Kubernetes cluster
 1 master and 3 workers
-worker nodes attach 1 HHDs with 100G capacity to each worker, these will be used for CEPH OSD drives 
+worker nodes attach 1 HHDs with 100G capacity to each worker, these will be used for CEPH OSD drives
+
+    NAME           STATUS   ROLES    AGE    VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+    controlnode    Ready    master   132m   v1.17.0   172.16.1.151   <none>        Ubuntu 16.04.6 LTS   4.15.0-76-generic   docker://19.3.4
+    workernode01   Ready    <none>   130m   v1.17.0   172.16.1.115   <none>        Ubuntu 16.04.6 LTS   4.15.0-76-generic   docker://19.3.4
+    workernode02   Ready    <none>   130m   v1.17.0   172.16.1.126   <none>        Ubuntu 16.04.6 LTS   4.15.0-76-generic   docker://19.3.4
+    workernode03   Ready    <none>   129m   v1.17.0   172.16.1.183   <none>        Ubuntu 16.04.6 LTS   4.15.0-76-generic   docker://19.3.4
 
 make sure the disks you selecting for OSDs on worker node, does not contain any valid partions or signatures, ifso please make cleanup 
     --> wipefs --all /dev/xvdb
@@ -63,7 +69,7 @@ make sure all k8s cluster hosts pingable with hostnames.
     wget https://github.com/Mirantis/criproxy/releases/download/v0.14.0/criproxy_0.14.0_amd64.deb
     dpkg -i criproxy_0.14.0_amd64.deb
     systemctl status criproxy
-    systemctl status criproxy
+    
     
 
 Trouble shooting failures
