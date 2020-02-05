@@ -18,29 +18,27 @@ worker nodes attach 1 HHDs with 100G capacity to each worker, these will be used
     workernode03   Ready    <none>   129m   v1.17.0   172.16.1.183   <none>        Ubuntu 16.04.6 LTS   4.15.0-76-generic   docker://19.3.4
 
 make sure the disks you selecting for OSDs on worker node, does not contain any valid partions or signatures, ifso please make cleanup 
-    --> wipefs --all /dev/xvdb
+     
+    wipefs --all /dev/xvdb
                 (or)
-    --> fdisk -l
-        dmsetup remove /dev/mapper/ceph--
+    fdisk -l
+    dmsetup remove /dev/mapper/ceph--
     
+--> 
 clone the rook-ceph 1.2 git repo
+    
     git clone --single-branch --branch release-1.2 https://github.com/rook/rook.git
 
 follow the instructions present @ https://rook.io/docs/rook/v1.2/ceph-quickstart.html and deploy your rook-ceph 
 make the needed changes for your HDDs you use.
 
---> cd rook/cluster/examples/kubernetes/ceph
-
---> kubectl create -f common.yaml
-
---> kubectl create -f operator.yaml
-
---> kubectl create -f cluster.yaml (please refer to cluster.yaml from this repo for needed changes.)
-
---> kubectl create -f toolbox.yaml <-- This will bring up the toolbox pod with all needed ceph clients for connecting to 
-ceph cluster.
-
---> kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') bash <-- for connecting to the tools pod
+    cd rook/cluster/examples/kubernetes/ceph
+    kubectl create -f common.yaml
+    kubectl create -f operator.yaml
+    kubectl create -f cluster.yaml (please refer to cluster.yaml from this repo for needed changes.)
+    kubectl create -f toolbox.yaml <-- This will bring up the toolbox pod with all needed ceph clients for connecting to 
+    ceph cluster.
+    kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') bash <-- for connecting to the tools pod
 
 
 on re-installation make sure the the config directory being deleted.
@@ -54,18 +52,20 @@ find the service with manager-dashboard, change the service type from ClusterIp 
 virtlet Installation
 ====================
 
-sestatus <-- SELinux Status should be disabled
+check the pre-reqisites for virtlet installation
 
-sudo groupadd docker
+    sestatus <-- SELinux Status should be disabled
+    
+    sudo groupadd docker
+    sudo usermod -aG docker ubuntu
 
-sudo usermod -aG docker ubuntu
-
-make sure all k8s cluster hosts pingable with hostnames.
+    make sure all k8s cluster nodes pingable with hostnames
 
 --> use this document to install the virtlet https://docs.virtlet.cloud/user-guide/real-cluster/
 
---> 
-    
+-->
+   download and install criproxy
+   
     wget https://github.com/Mirantis/criproxy/releases/download/v0.14.0/criproxy_0.14.0_amd64.deb
     dpkg -i criproxy_0.14.0_amd64.deb
     systemctl status criproxy
@@ -108,8 +108,17 @@ make sure all k8s cluster hosts pingable with hostnames.
     [Install]
     WantedBy=multi-user.target
 
-  sudo systemctl daemon-reload
+--> 
+  re-load system deamon 
   
+    sudo systemctl daemon-reload
+  
+-->
+   label the nodes 
+   
+    kubectl label node workernode01 extraRuntime=virtlet
+    kubectl label node workernode02 extraRuntime=virtlet
+
 Troubleshooting failures
 ------------------------
 
