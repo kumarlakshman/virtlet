@@ -71,9 +71,13 @@ make sure all k8s cluster hosts pingable with hostnames.
     systemctl status criproxy
     
 -->
-   on worker nodes stop the dockershim and criproxy if they are running 
-   edit the /etc/systemd/system/dockershim.service and the contents of it look like
+   on worker nodes stop the dockershim and criproxy and kubelet  
    
+    sudo systemctl stop dockershim criproxy kubelet
+-->
+
+   edit /etc/systemd/system/dockershim.service and the contents of it look like
+    
     [Unit]
     Description=kubelet: The Kubernetes Node Agent
     Documentation=https://kubernetes.io/docs/home/
@@ -88,7 +92,7 @@ make sure all k8s cluster hosts pingable with hostnames.
     WantedBy=multi-user.target
     RequiredBy=criproxy.service
    
-   stop the kubelet service and edit /lib/systemd/system/kubelet.service, after edit it will look something like
+   edit /lib/systemd/system/kubelet.service, after edit it will look something like
    
    
     [Unit]
@@ -104,8 +108,10 @@ make sure all k8s cluster hosts pingable with hostnames.
     [Install]
     WantedBy=multi-user.target
 
-Trouble shooting failures
---------------------------
+  sudo systemctl daemon-reload
+  
+Troubleshooting failures
+------------------------
 
 systemctl status dockershim <-- incase criproxy installation fails check the status of dockrshim, get it started and then  start the criproxy again.
 
