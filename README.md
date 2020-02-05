@@ -70,7 +70,39 @@ make sure all k8s cluster hosts pingable with hostnames.
     dpkg -i criproxy_0.14.0_amd64.deb
     systemctl status criproxy
     
-    
+-->
+   on worker nodes stop the dockershim and criproxy if they are running 
+   edit the /etc/systemd/system/dockershim.service and the contents of it look like
+   
+    [Unit]
+    Description=kubelet: The Kubernetes Node Agent
+    Documentation=https://kubernetes.io/docs/home/
+
+    [Service]
+    ExecStart=/usr/bin/kubelet --experimental-dockershim --port 11250
+    Restart=always
+    StartLimitInterval=0
+    RestartSec=10
+
+    [Install]
+    WantedBy=multi-user.target
+    RequiredBy=criproxy.service
+   
+   stop the kubelet service and edit /lib/systemd/system/kubelet.service, after edit it will look something like
+   
+   
+    [Unit]
+    Description=kubelet: The Kubernetes Node Agent
+    Documentation=https://kubernetes.io/docs/home/
+
+    [Service]
+    ExecStart=/usr/bin/kubelet --container-runtime=remote --container-runtime-endpoint=unix:///run/criproxy.sock --image-service-endpoint=unix:///run/criproxy.sock --enable-controller-attach-detach=false
+    Restart=always
+    StartLimitInterval=0
+    RestartSec=10
+
+    [Install]
+    WantedBy=multi-user.target
 
 Trouble shooting failures
 --------------------------
