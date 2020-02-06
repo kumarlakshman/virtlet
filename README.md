@@ -7,6 +7,16 @@ Virtlet, on the other hand is a CRI (Container Runtime Interface) implementation
 
 Steps:
 ------
+
+    # sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+    # curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    # cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+      deb https://apt.kubernetes.io/ kubernetes-xenial main
+      EOF
+    # sudo apt-get update
+    # sudo apt-get install -y kubelet=1.17.0-00 kubeadm=1.17.0-00 kubectl=1.17.0-00 docker=19.03.4
+    # sudo apt-mark hold kubelet kubeadm kubectl docker
+
 Deploy Kubernetes cluster
 1 master and 3 workers
 worker nodes attach 1 HHDs with 100G capacity to each worker, these will be used for CEPH OSD drives
