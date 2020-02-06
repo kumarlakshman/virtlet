@@ -24,7 +24,10 @@ Steps:
     sudo apt-get install docker-ce=18.06.3~ce~3-0~ubuntu  containerd.io
 
 
+--> swapoff on all nodes
 
+    sudo swapoff -a
+    
     sudo kubeadm init--pod-network-cidr=10.244.0.0/16
     sudo mkdir -p $HOME/.kube/
     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
