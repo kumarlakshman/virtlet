@@ -16,7 +16,14 @@ Steps:
     # sudo apt-get update
     # sudo apt-get install -y kubelet=1.17.0-00 kubeadm=1.17.0-00 kubectl=1.17.0-00 docker=19.03.4
     # sudo apt-mark hold kubelet kubeadm kubectl docker
+    
+    
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    sudo apt-get update
+    sudo apt-get install docker-ce=19.03.4 docker-ce-cli=19.03.4 containerd.io
 
+if your deployment is single node deployment just untaint the master node
 Deploy Kubernetes cluster
 1 master and 3 workers
 worker nodes attach 1 HHDs with 100G capacity to each worker, these will be used for CEPH OSD drives
