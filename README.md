@@ -24,6 +24,15 @@ Steps:
     sudo apt-get install docker-ce=18.06.3~ce~3-0~ubuntu  containerd.io
 
 
+
+    sudo kubeadm init--pod-network-cidr=10.244.0.0/16
+    sudo mkdir -p $HOME/.kube/
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    kubectl get pods -o wide --all-namespaces
+    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
+
+
 if your deployment is single node deployment just untaint the master node
 Deploy Kubernetes cluster
 1 master and 3 workers
