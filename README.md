@@ -33,9 +33,8 @@ Steps:
     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     sudo chown $(id -u):$(id -g) $HOME/.kube/config
     kubectl get pods -o wide --all-namespaces
-    kubectl taint nodes --all node-role.kubernetes.io/master-
     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
-
+    kubectl taint nodes --all node-role.kubernetes.io/master-
 
 if your deployment is single node deployment just untaint the master node
 Deploy Kubernetes cluster
