@@ -148,6 +148,12 @@ check the pre-reqisites for virtlet installation
    
     kubectl label node workernode01 extraRuntime=virtlet
     kubectl label node workernode02 extraRuntime=virtlet
+    
+    
+-->
+   accessing ceph dashboard password
+   
+    kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode && echo
 
 Troubleshooting failures
 ------------------------
