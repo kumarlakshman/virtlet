@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cirros-vm
+  annotations:
+    # This tells CRI Proxy that this pod belongs to Virtlet runtime
+    kubernetes.io/target-runtime: virtlet.cloud
+    # CirrOS doesn't load nocloud data from SCSI CD-ROM for some reason
+    VirtletDiskDriver: virtio
+    # inject ssh keys via cloud-init
+    VirtletSSHKeys: | 
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQ304xibsWAdjvvC+2/BvNGmgUGXjEjqwtClNBrx2ojbhRC+86iodIAnPe+Nr84DB9qJwKi1H1Y9z6livGoMDawwTN4pnRw5BmwargKYrgC1fHIAe7vgaPmWnMdkQ4FUB3STupnPwJ3vJD+gdoPZwAurF1xidtgxjdZ8nSKbdVVcQ5p0SAxtM/Nd3oHbzIpwS23qt3hPfAUgsb8kUFoYVAXCiuToprSQINTD3jwU2cMwah+KJywRVENybIst0QPqDWmnvj4ZC+UAzWG7YL1yEUiWoXFeNBT+FD3gWxHS/WR6gJaChszlOci9Hm9WmADywTZkoCcYFJwokypVf3uouT pramati@PRINHYLTPHP0305 
+    # set root volume size
+    VirtletRootVolumeSize: 3Gi
+spec:
+  # This nodeSelector specification tells Kubernetes to run this
+  # pod only on the nodes that have extraRuntime=virtlet label.
+  # This label is used by Virtlet DaemonSet to select nodes
+  # that must have Virtlet runtime
+  nodeSelector:
+    extraRuntime: virtlet
+
+  containers:
+  - name: cirros-vm
+    # This specifies the image to use.
+    # virtlet.cloud/ prefix is used by CRI proxy, the remaining part
+    # of the image name is prepended with https:// and used to download the image
+    image: virtlet.cloud/cirros
+    imagePullPolicy: IfNotPresent
+    # tty and stdin required for `kubectl attach -t` to work
+    tty: true
+    stdin: true
+    #resources:
+    #  limits:
+        # This memory limit is applied to the libvirt domain definition
+    #    memory: 160Mi
+    volumeDevices:
+        - name: testceph
+          devicePath: /dev/ceph
+  volumes:
+  - name: testceph
+    persistentVolumeClaim:
+      claimName: virtlet-pv-claim
